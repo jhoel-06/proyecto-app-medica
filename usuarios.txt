@@ -1,0 +1,3 @@
+medico 123456 1
+paciente 123456 2
+administrador 123456 0

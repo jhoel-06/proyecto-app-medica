@@ -1,0 +1,3 @@
+Nombre: Carlos | Codigo: 4567 | Especialidad: DERMATOLOGO (1) | Estado: DISPONIBLE (0)
+Nombre: Vero | Codigo: 1111 | Especialidad: DERMATOLOGO (1) | Estado: DISPONIBLE (0)
+Nombre: esmeralda | Codigo: 4444 | Especialidad: GINECOLOGO (3) | Estado: DISPONIBLE (0)
