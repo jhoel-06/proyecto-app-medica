@@ -34,7 +34,7 @@ int main() {
 			getchar();
 			system("cls");
 			loginCorrecto = 1;
-			// Mostrar pantalla según tipo
+			// Mostrar pantalla segÃºn tipo
 			switch(tipo) {
 			case ADMINISTRADOR:
 				// Pantalla administrador
@@ -183,7 +183,7 @@ int main() {
 				printf("1. Agendar una cita\n");
 				printf("2. Reagendar cita\n");
 				printf("3. Cancelar cita\n");
-				printf("4. Consultar lista de medicos y orarios de disponibilidad\n");
+				printf("4. Consultar lista de medicos y horarios de disponibilidad\n");
 				printf("5. Salir del programa\n");
 				break;
 			}
