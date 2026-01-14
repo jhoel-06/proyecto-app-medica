@@ -4,9 +4,10 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <conio.h>
-#include "pacientes.h"
+//#include "pacientes.h"
 #include "usuarios.h"
-#include "medicos.h"
+//#include "medicos.h"
+#include "citas.h"
 #include "funciones_varias.h"
 
 
@@ -19,6 +20,8 @@ int main() {
 	int loginCorrecto = 0;
 	int nuevo;
 	tipoUsuario tipo;
+	char *cedulaPaciente;
+	int codigo;
 	// Menu de acceso
 	while (!loginCorrecto) {
 		
@@ -124,9 +127,11 @@ int main() {
 						}
 						break;
 					case 3:
-						
+						cedulaPaciente = buscarPacientePorCedula();
+						if (cedulaPaciente != NULL) {
+						agendarCita(cedulaPaciente);
+						}
 						break;
-						
 					case 4:
 						printf("Saliendo del programa...\n");
 						return 1;
@@ -138,12 +143,40 @@ int main() {
 				break;
 			case MEDICO:
 				//Pantalla medico
+				printf("Ingrese su codigo medico: ");
+				codigo = buscarMedicoPorCodigo();
+				if (codigo != -1) {
+					printf("Medico con codigo %d encontrado\n", codigo);
+				} else {
+					return 1;
+				}
+				cambioPantalla();
+				while(1) {
 				printf("\n-----MENU PRINCIPAL-----\n");
 				printf("1. Consultar lista de pacientes con citas pendientes\n");
 				printf("2. Posponer cita\n");
 				printf("3. Realizar diagnostico\n");
 				printf("4. Salir del programa\n");
+				accion = validarOpcionMenu(4);
+				switch(accion) {
+				case 1:
+					mostrarCitas(codigo);
+					cambioPantalla();
+					break;
+				case 2:
+					modificarCita(codigo);
+					cambioPantalla();
+					break;	
+				case 3:
+					eliminarCita(codigo);
+					cambioPantalla();
+					break;
+				default:
+					printf("Saliendo del programa...\n");
+					return 1;
+				}
 				break;
+				}
 			default:
 				//Pantalla paciente
 				printf("\n-----MENU PRINCIPAL-----\n");

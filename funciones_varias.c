@@ -6,6 +6,13 @@
 #include <stdbool.h>
 #include <conio.h>
 
+void limpiarBuffer() {
+	int c;
+	while ((c = getchar()) != '\n' && c != EOF) {
+		;
+	}
+}
+
 void pedirCadena(const char *mensaje, char *buffer, int tam) {
 	printf("%s", mensaje);
 	fgets(buffer, tam, stdin);

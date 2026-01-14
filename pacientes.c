@@ -1,16 +1,11 @@
 #include "pacientes.h"
+#include "funciones_varias.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
 
-void limpiarBuffer() {
-	int c;
-	while ((c = getchar()) != '\n' && c != EOF) {
-		;
-	}
-}
 
 
 bool soloDigitos(const char *cadena) {

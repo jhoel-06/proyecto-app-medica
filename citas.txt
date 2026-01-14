@@ -1,0 +1,4 @@
+CedulaPaciente: 1150788188 | CodigoMedico: 4567 | Fecha: 11/02/2026 | Hora: 11:00
+CedulaPaciente: 0987654321 | CodigoMedico: 6667 | Fecha: 12/07/2026 | Hora: 13:00
+CedulaPaciente: 1111111111 | CodigoMedico: 7771 | Fecha: 15/09/2026 | Hora: 09:30
+CedulaPaciente: 3333333333 | CodigoMedico: 1111 | Fecha: 19/04/2026 | Hora: 16:00
