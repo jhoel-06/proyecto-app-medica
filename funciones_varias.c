@@ -66,7 +66,6 @@ int validarOpcionMenu(int x) {
 			valido = false;
 			continue;
 		}
-		
 		entrada[strcspn(entrada, "\n")] = '\0';
 		
 		if (entrada[0] == '\0') {

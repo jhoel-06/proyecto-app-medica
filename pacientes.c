@@ -6,8 +6,6 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-
-
 bool soloDigitos(const char *cadena) {
 	if (cadena == NULL) return false;
 	for (size_t i = 0; cadena[i] != '\0'; i++) {
@@ -192,7 +190,7 @@ void eliminarPaciente() {
 		return;
 	}
 	
-	// 2?? Mostrar datos para confirmación
+	// Mostrar datos para confirmación
 	printf("\nPaciente encontrado:\n");
 	printf("Nombre: %s\n", nombre);
 	printf("Edad: %d\n", edad);
@@ -211,7 +209,7 @@ void eliminarPaciente() {
 		return;
 	}
 	
-	// 3?? Crear archivo temporal y eliminar realmente
+	// Crear archivo temporal y eliminar realmente
 	FILE *temp = fopen("temp_pacientes.txt", "w");
 	if (temp == NULL) {
 		printf("No se pudo crear archivo temporal.\n");
@@ -313,8 +311,7 @@ void modificarPaciente() {
 		if (strcmp(cedula, cedulaBuscar) == 0) {
 			encontrado = true;
 			printf("\nPaciente encontrado:\n");
-			printf("Nombre: %s\nEdad: %d\nCedula: %s\nTelefono: %s\nCorreo: %s\n\n",
-				   nombre, edad, cedula, telefono, correo);
+			printf("Nombre: %s\nEdad: %d\nCedula: %s\nTelefono: %s\nCorreo: %s\n\n",nombre, edad, cedula, telefono, correo);
 			
 			Paciente np;
 
@@ -328,22 +325,7 @@ void modificarPaciente() {
 			
 			limpiarBuffer();
 			
-			printf("Ingrese nuevo nombre (enter para mantener): ");
-			if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
-				trim(buffer);
-				if (strlen(buffer) > 0) {
-					strncpy(np.nombre, buffer, sizeof(np.nombre)-1); np.nombre[sizeof(np.nombre)-1] = '\0';
-				}
-			}
-			
-			printf("Ingrese nueva edad (enter para mantener): ");
-			if (fgets(buffer, sizeof(buffer), stdin) != NULL) {
-				trim(buffer);
-				if (strlen(buffer) > 0) {
-					int e = atoi(buffer);
-					if (e >= 0 && e <= 150) np.edad = e; else printf("Edad invalida, se mantiene anterior\n");
-				}
-			}
+
 			
 			printf("Ingrese nuevo telefono (10 digitos, enter para mantener): ");
 			if (fgets(buffer, sizeof(buffer), stdin) != NULL) {

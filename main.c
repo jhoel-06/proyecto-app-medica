@@ -34,7 +34,7 @@ int main() {
 			getchar();
 			system("cls");
 			loginCorrecto = 1;
-			// Mostrar pantalla segÃºn tipo
+			// Mostrar pantalla según tipo
 			switch(tipo) {
 			case ADMINISTRADOR:
 				// Pantalla administrador
@@ -143,15 +143,15 @@ int main() {
 				break;
 			case MEDICO:
 				//Pantalla medico
-				printf("Ingrese su codigo medico: ");
-				codigo = buscarMedicoPorCodigo();
-				if (codigo != -1) {
-					printf("Medico con codigo %d encontrado\n", codigo);
-				} else {
-					return 1;
-				}
-				cambioPantalla();
-				while(1) {
+			printf("Ingrese su codigo medico: ");
+			codigo = buscarMedicoPorCodigo();
+			if (codigo != -1) {
+				printf("Medico con codigo %d encontrado\n", codigo);
+			} else {
+				return 1;
+			}
+			cambioPantalla();
+			while(1) {
 				printf("\n-----MENU PRINCIPAL-----\n");
 				printf("1. Consultar lista de pacientes con citas pendientes\n");
 				printf("2. Posponer cita\n");
@@ -175,16 +175,45 @@ int main() {
 					printf("Saliendo del programa...\n");
 					return 1;
 				}
-				break;
 				}
+				break;
 			default:
+				do {
+				cedulaPaciente = buscarPacientePorCedula();
+				} while(cedulaPaciente == NULL);
+				printf("Cedula encontrada\n");
+				cambioPantalla();
 				//Pantalla paciente
+				while(1) {
 				printf("\n-----MENU PRINCIPAL-----\n");
 				printf("1. Agendar una cita\n");
 				printf("2. Reagendar cita\n");
 				printf("3. Cancelar cita\n");
-				printf("4. Consultar lista de medicos y horarios de disponibilidad\n");
+				printf("4. Consultar lista de medicos y su disponibilidad\n");
 				printf("5. Salir del programa\n");
+				accion = validarOpcionMenu(5);
+				switch(accion) {
+				case 1:
+					agendarCita(cedulaPaciente);
+					cambioPantalla();
+					break;
+				case 2:
+					modificarCitaPorCedula(cedulaPaciente);
+					cambioPantalla();
+					break;	
+				case 3:
+					eliminarCitaPorCedula(cedulaPaciente);
+					cambioPantalla();
+					break;
+				case 4:
+					mostrarMedicos();
+					cambioPantalla();
+					break;
+				default:	
+					printf("Saliendo del programa...\n");
+					return 1;
+				}
+				}
 				break;
 			}
 		} else { //Login incorrecto

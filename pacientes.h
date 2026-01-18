@@ -13,14 +13,7 @@ typedef struct{
 	char telefono[11];
 	char correo[30];
 }Paciente;
-void limpiarPantalla();
-void limpiarBuffer(void);
-bool soloDigitos(const char *cadena);
-bool validarEmail(const char *email);
-
 Paciente crearpaciente(void);
-bool cedulaExiste(const char *cedula);
-bool correoExiste(const char *correo);
 bool guardarPacienteEnArchivo(const Paciente *p);
 void eliminarPaciente();
 void modificarPaciente(void);
