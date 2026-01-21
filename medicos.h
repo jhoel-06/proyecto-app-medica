@@ -1,7 +1,7 @@
 #ifndef MEDICOS_H
 #define MEDICOS
 
-
+//Estructura principal del medico
 typedef enum {
 	DENTISTA, DERMATOLOGO, PEDIATRA, GINECOLOGO, GENERAL
 } especialidades;

@@ -1,5 +1,7 @@
 #include "citas.h"
 #include "funciones_varias.h"
+#include "medicos.h"
+#include "pacientes.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -262,7 +264,7 @@ void modificarCita(int codigoMedico) {
 	char cedula[11], fecha[11], hora[6];
 	char nuevaFecha[11], nuevaHora[6];
 	int codigoArchivo;
-	int opcion, contador = 0, seleccion;
+	int contador = 0, seleccion;
 	
 	fc = fopen("citas.txt", "r");
 	if (!fc) {

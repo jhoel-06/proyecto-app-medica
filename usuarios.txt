@@ -1,3 +1,6 @@
 medico 123456 1
 paciente 123456 2
 administrador 123456 0
+Jhandry 123456 0
+Fedsd 123456 2
+veroo 123456 1

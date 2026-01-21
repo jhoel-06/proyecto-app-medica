@@ -134,15 +134,25 @@ void mostrarMedicos() {
 	FILE *archivo = fopen("medicos.txt", "r");
 	char linea[300];
 	
+	char nombre[50], especialidad[50], estado[20];
+	int codigo, espCod, estCod;
+	
 	if (archivo == NULL) {
 		printf("No hay registros de medicos.\n");
 		return;
 	}
 	
 	printf("\n----- LISTA DE MEDICOS -----\n");
+	printf("%-20s %-8s %-20s %-12s\n",
+		   "NOMBRE", "CODIGO", "ESPECIALIDAD", "ESTADO");
+	printf("-------------------------------------------------------------\n");
 	
-	while (fgets(linea, sizeof(linea), archivo) != NULL) {
-		printf("%s", linea);
+	while (fgets(linea, sizeof(linea), archivo)) {
+		
+		if (sscanf(linea,"Nombre: %49[^|]| Codigo: %d | Especialidad: %49[^ (] (%d) | Estado: %19[^ (] (%d)",nombre, &codigo, especialidad, &espCod, estado, &estCod) == 6) {
+			
+			printf("%-20s %-8d %-20s %-12s\n",nombre, codigo, especialidad, estado);
+		}
 	}
 	
 	fclose(archivo);

@@ -3,14 +3,11 @@
 #include <string.h>
 #include <ctype.h>      
 #include <stdlib.h>
-#include <stdbool.h>
 #include <conio.h>
 
 void limpiarBuffer() {
 	int c;
-	while ((c = getchar()) != '\n' && c != EOF) {
-		;
-	}
+	while ((c = getchar()) != '\n' && c != EOF);
 }
 
 void pedirCadena(const char *mensaje, char *buffer, int tam) {
@@ -27,7 +24,6 @@ void pedirContrasena(const char *mensaje, char *buffer, int tam) {
 	
 	while (1) {
 		c = getch();   // No muestra el carácter
-		
 		// Enter
 		if (c == 13) {
 			buffer[i] = '\0';
@@ -45,54 +41,38 @@ void pedirContrasena(const char *mensaje, char *buffer, int tam) {
 		}
 	}
 	printf("\n");
+
 }
 
 void cambioPantalla() {
-	printf("Pulse enter para continuar: ");
-	getchar();
+	char temp[10];
+	printf("\nPulse enter para continuar: ");
+	fgets(temp, sizeof(temp), stdin);
 	system("cls");
 }
 
 int validarOpcionMenu(int x) {
-	char entrada[10];
-	int opcion;
-	bool valido;
-	
-	do {
-		valido = true;
-		//printf("Seleccione una opcion: ");
-		if (fgets(entrada, sizeof(entrada), stdin) == NULL) {
-			printf("Error al leer la entrada.\n");
-			valido = false;
-			continue;
-		}
-		entrada[strcspn(entrada, "\n")] = '\0';
-		
-		if (entrada[0] == '\0') {
-			printf("Error: No se ingreso ninguna opcion.\n");
-			valido = false;
+	char buffer[100];
+	int num;
+	char *valid;
+	while(1) {
+		fgets(buffer, sizeof(buffer), stdin);
+		if(buffer[0] == '\n') {
+			printf("Error salto de linea. Ingrese nuevamente: ");
 			continue;
 		}
 		
-		// Validar que sean números
-		for (int i = 0; entrada[i] != '\0'; i++) {
-			if (!isdigit((unsigned char)entrada[i])) {
-				printf("Error: Solo se permiten numeros.\n");
-				valido = false;
-				break;
-			}
+		num = strtol(buffer, &valid, 10);
+		
+		if(*valid != '\n') {
+			printf("Error: ");
+			continue;
+		} 
+		if (num > 0 && num <= x) {
+			return num;
+		} else {
+			printf("Error:  Opcion invalida. Debe ser entre 1 y %d.\n", x);
+			continue;
 		}
-		
-		if (!valido) continue;
-		
-		opcion = atoi(entrada);
-		
-		if (opcion < 1 || opcion > x) {
-			printf("Error: Opcion invalida. Debe ser entre 1 y %d.\n",x);
-			valido = false;
-		}
-		
-	} while (!valido);
-	
-	return opcion;
+	}
 }

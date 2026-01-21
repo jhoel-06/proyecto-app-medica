@@ -4,9 +4,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <conio.h>
-//#include "pacientes.h"
+#include "pacientes.h"
 #include "usuarios.h"
-//#include "medicos.h"
+#include "medicos.h"
 #include "citas.h"
 #include "funciones_varias.h"
 
@@ -21,7 +21,9 @@ int main() {
 	int nuevo;
 	tipoUsuario tipo;
 	char *cedulaPaciente;
-	int codigo;
+	int codigo, valid;
+	Paciente p;
+	
 	// Menu de acceso
 	while (!loginCorrecto) {
 		
@@ -30,10 +32,10 @@ int main() {
 		pedirContrasena("Clave: ", contrasena, sizeof(contrasena));
 		
 		if (obtenerTipoUsuario(usuario, contrasena, &tipo)) {
-			printf("\nInicio de sesion exitoso. Pulse enter para continuar.\n");
-			getchar();
-			system("cls");
+			printf("\nInicio de sesion exitoso");
+
 			loginCorrecto = 1;
+			cambioPantalla();
 			// Mostrar pantalla según tipo
 			switch(tipo) {
 			case ADMINISTRADOR:
@@ -60,10 +62,8 @@ int main() {
 							
 							switch(seleccion) {
 							case 1: 
-							{
-								Paciente p = crearpaciente(); 
+								p = crearpaciente(); 
 								cambioPantalla();
-							}
 							break;
 							
 							case 2:
@@ -178,21 +178,21 @@ int main() {
 				}
 				break;
 			default:
-				do {
-				cedulaPaciente = buscarPacientePorCedula();
-				} while(cedulaPaciente == NULL);
-				printf("Cedula encontrada\n");
-				cambioPantalla();
-				//Pantalla paciente
-				while(1) {
-				printf("\n-----MENU PRINCIPAL-----\n");
-				printf("1. Agendar una cita\n");
-				printf("2. Reagendar cita\n");
-				printf("3. Cancelar cita\n");
-				printf("4. Consultar lista de medicos y su disponibilidad\n");
-				printf("5. Salir del programa\n");
-				accion = validarOpcionMenu(5);
-				switch(accion) {
+			do {
+			cedulaPaciente = buscarPacientePorCedula();
+			} while(cedulaPaciente == NULL);
+			printf("Cedula encontrada\n");
+			cambioPantalla();
+			//Pantalla paciente
+			while(1) {
+			printf("\n-----MENU PRINCIPAL-----\n");
+			printf("1. Agendar una cita\n");
+			printf("2. Reagendar cita\n");
+			printf("3. Cancelar cita\n");
+			printf("4. Consultar lista de medicos y su disponibilidad\n");
+			printf("5. Salir del programa\n");
+			accion = validarOpcionMenu(5);
+			switch(accion) {
 				case 1:
 					agendarCita(cedulaPaciente);
 					cambioPantalla();
@@ -212,8 +212,8 @@ int main() {
 				default:	
 					printf("Saliendo del programa...\n");
 					return 1;
-				}
-				}
+			}
+			}
 				break;
 			}
 		} else { //Login incorrecto
@@ -223,8 +223,13 @@ int main() {
 			nuevo = validarOpcionMenu(3);
 			switch (nuevo) {
 			case 1:
-				registrarUsuarioPaciente();
-				cambioPantalla();
+				valid = registrarUsuario();
+				if(valid == 1) {
+					cambioPantalla();
+				} else {
+					return 0; 
+				}
+				
 				break;
 			case 2:
 				cambioPantalla();

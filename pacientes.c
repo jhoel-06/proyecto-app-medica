@@ -460,16 +460,28 @@ Paciente crearpaciente(void) {
 
 void imprimirPacientes() {
 	char linea[200];
+	char nombre[50], correo[50];
+	int edad;
+	unsigned long long cedula, celular;
+	
 	FILE *f = fopen("pacientes.txt", "r");
 	if (!f) {
 		perror("fopen");
-		return false;
+		return;
 	}
-	printf("\n--- PACIENTES REGISTRADOS---\n");
-	printf("NOMBRE|EDAD| CEDULA  | CELULAR | CORREO \n");
-	while (fgets(linea, sizeof(linea), f) != NULL) {
-		printf("%s", linea);
+	
+	printf("\n--- PACIENTES REGISTRADOS ---\n");
+	printf("%-15s %-6s %-15s %-15s %-25s\n",
+		   "NOMBRE", "EDAD", "CEDULA", "CELULAR", "CORREO");
+	printf("--------------------------------------------------------------------------\n");
+	
+	while (fgets(linea, sizeof(linea), f)) {
+		if (sscanf(linea,"%49[^|]|%d|%llu|%llu|%49[^\n]",nombre, &edad, &cedula, &celular, correo) == 5) {
+			
+			printf("%-15s %-6d %-15llu %-15llu %-25s\n",nombre, edad, cedula, celular, correo);
+		}
 	}
+	
 	fclose(f);
 }
 
