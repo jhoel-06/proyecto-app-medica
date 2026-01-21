@@ -32,22 +32,49 @@ void validarNombre(char nombre[], int tam) {
 	} while (!valido);
 }
 
+int codigoExiste(int codigo) {
+	FILE *archivo = fopen("medicos.txt", "r");
+	if (archivo == NULL) {
+		// Si el archivo no existe aún, no hay códigos registrados
+		return 0;
+	}
+	
+	char linea[256];
+	int codigoArchivo;
+	
+	while (fgets(linea, sizeof(linea), archivo)) {
+		// Extrae solo el código desde la estructura del archivo
+		if (sscanf(linea, "Nombre: %*[^|] | Codigo: %d", &codigoArchivo) == 1) {
+			if (codigoArchivo == codigo) {
+				fclose(archivo);
+				return 1; // Código ya existe
+			}
+		}
+	}
+	
+	fclose(archivo);
+	return 0; // Código no encontrado
+}
+
+
 int validarCodigo() {
 	char entrada[20];
 	int valido;
+	int codigo;
+	
 	do {
 		valido = 1;
 		printf("Ingrese un numero de 4 digitos: ");
 		fgets(entrada, sizeof(entrada), stdin);
-		// Eliminar salto de línea
+
 		entrada[strcspn(entrada, "\n")] = '\0';
-		// Validar Enter vacío
+		// Validar vacío
 		if (strlen(entrada) == 0) {
 			printf("Error: No puede dejar el campo vacio.\n");
 			valido = 0;
 			continue;
 		}
-		// Validar longitud exacta
+		// Validar longitud
 		if (strlen(entrada) != 4) {
 			printf("Error: Debe ingresar exactamente 4 digitos.\n");
 			valido = 0;
@@ -61,10 +88,17 @@ int validarCodigo() {
 				break;
 			}
 		}
+		if (!valido) continue;
+		codigo = atoi(entrada);
+		// Validar código duplicado
+		if (codigoExiste(codigo)) {
+			printf("Error: El codigo ya esta registrado.\n");
+			valido = 0;
+		}
 		
 	} while (!valido);
 	
-	return atoi(entrada);
+	return codigo;
 }
 
 medico m() {
