@@ -11,10 +11,10 @@ void validarNombre(char nombre[], int tam) {
 		valido = 1;
 		printf("Ingrese el nombre: ");
 		fgets(nombre, tam, stdin);
-		// Eliminar el salto de línea
+		// Eliminar el salto de lÃ­nea
 		nombre[strcspn(nombre, "\n")] = '\0';
 		
-		// Verificar si está vacío
+		// Verificar si estÃ¡ vacÃ­o
 		if (strlen(nombre) == 0) {
 			printf("Error: No puede dejar el nombre vacio.\n");
 			valido = 0;
@@ -35,7 +35,6 @@ void validarNombre(char nombre[], int tam) {
 int codigoExiste(int codigo) {
 	FILE *archivo = fopen("medicos.txt", "r");
 	if (archivo == NULL) {
-		// Si el archivo no existe aún, no hay códigos registrados
 		return 0;
 	}
 	
@@ -43,17 +42,17 @@ int codigoExiste(int codigo) {
 	int codigoArchivo;
 	
 	while (fgets(linea, sizeof(linea), archivo)) {
-		// Extrae solo el código desde la estructura del archivo
+		// Extrae solo el cÃ³digo desde la estructura del archivo
 		if (sscanf(linea, "Nombre: %*[^|] | Codigo: %d", &codigoArchivo) == 1) {
 			if (codigoArchivo == codigo) {
 				fclose(archivo);
-				return 1; // Código ya existe
+				return 1; // CÃ³digo ya existe
 			}
 		}
 	}
 	
 	fclose(archivo);
-	return 0; // Código no encontrado
+	return 0; // CÃ³digo no encontrado
 }
 
 
@@ -68,7 +67,7 @@ int validarCodigo() {
 		fgets(entrada, sizeof(entrada), stdin);
 
 		entrada[strcspn(entrada, "\n")] = '\0';
-		// Validar vacío
+		// Validar vacÃ­o
 		if (strlen(entrada) == 0) {
 			printf("Error: No puede dejar el campo vacio.\n");
 			valido = 0;
@@ -80,7 +79,7 @@ int validarCodigo() {
 			valido = 0;
 			continue;
 		}
-		// Validar solo números
+		// Validar solo nÃºmeros
 		for (int i = 0; i < 4; i++) {
 			if (!isdigit(entrada[i])) {
 				printf("Error: Solo se permiten numeros.\n");
@@ -90,7 +89,7 @@ int validarCodigo() {
 		}
 		if (!valido) continue;
 		codigo = atoi(entrada);
-		// Validar código duplicado
+		// Validar cÃ³digo duplicado
 		if (codigoExiste(codigo)) {
 			printf("Error: El codigo ya esta registrado.\n");
 			valido = 0;
@@ -336,3 +335,4 @@ void modificarMedico() {
 	else
 		printf("No se encontro el medico con codigo %d.\n", codigoBuscado);
 }
+
